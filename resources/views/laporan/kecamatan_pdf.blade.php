@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Bulanan Pernikahan</title>
+    <title>Laporan Kecamatan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,31 +12,30 @@
         }
 
         .kop-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            background-color: #4648CFFF;
+            display: table;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .kop-logo,
+        .empty {
+            width: 80px;
+            display: table-cell;
+            text-align: center;
+            vertical-align: top;
         }
 
         .kop-logo img {
             width: 80px;
             height: 80px;
-            object-fit: contain;
         }
 
         .kop {
-            width: 500px;
+            display: table-cell;
             text-align: center;
             font-weight: bold;
             font-size: 14px;
             line-height: 1.4;
-            background-color: #91C21EFF;
-        }
-
-        .empty {
-            width: 80px;
-            height: 80px;
         }
 
         h2 {
@@ -73,30 +72,25 @@
 </head>
 
 <body>
-    <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse;" border="0">
-        <tr>
-            <td style="width: 80px; text-align: center; border: none;">
-                <img src="{{ public_path('logo.png') }}" width="80" height="80" alt="Logo">
-            </td>
-            <td style="text-align: center; border: none;">
-                <div style="font-weight: bold; font-size: 14px;">
-                    {{ $title ?? 'Laporan Bulanan' }}<br>
-                    KUA KOTA BANJARBARU<br>
-                </div>
-            </td>
-            <td style="width: 80px; border: none;"></td>
-        </tr>
-    </table>
+    <div class="kop-container">
+        <div class="kop-logo">
+            <img src="{{ public_path('logo.png') }}" alt="Logo">
+        </div>
+        <div class="kop">
+            LAPORAN PERNIKAHAN PER KELURAHAN<br>
+            KUA KECAMATAN {{ strtoupper($kecamatan) }}<br>
+            TAHUN: {{ $tahun }}
+        </div>
+        <div class="empty"></div>
+    </div>
 
-
-
-    <h2>Laporan Jumlah Pernikahan Bulanan Pada Tahun {{$tahun}}</h2>
+    <h2>Distribusi Jumlah Pernikahan</h2>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Bulan</th>
+                <th>Nama Kelurahan</th>
                 <th>Jumlah Pernikahan</th>
             </tr>
         </thead>
@@ -104,7 +98,7 @@
             @forelse ($data as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ \Carbon\Carbon::parse($item->bulan)->translatedFormat('F Y') }}</td>
+                <td>{{ $item->nama_kelurahan }}</td>
                 <td>{{ $item->jumlah }}</td>
             </tr>
             @empty
@@ -112,11 +106,15 @@
                 <td colspan="3">Tidak ada data</td>
             </tr>
             @endforelse
+            <tr style="font-weight: bold;">
+                <td colspan="2">Total</td>
+                <td>{{ $total }}</td>
+            </tr>
         </tbody>
     </table>
 
     <div class="signature">
-        <p>Banjarbaru, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        <p>Banjarbaru, {{ $tanggal_cetak }}</p>
         <br><br><br>
         <p><strong>Petugas KUA</strong></p>
     </div>

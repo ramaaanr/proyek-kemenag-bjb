@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Bulanan Pernikahan</title>
+    <title>{{ $title }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,38 +12,35 @@
         }
 
         .kop-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            background-color: #4648CFFF;
+            display: table;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .kop-logo,
+        .empty {
+            width: 80px;
+            display: table-cell;
+            vertical-align: top;
+            text-align: center;
         }
 
         .kop-logo img {
             width: 80px;
             height: 80px;
-            object-fit: contain;
         }
 
         .kop {
-            width: 500px;
+            display: table-cell;
             text-align: center;
             font-weight: bold;
             font-size: 14px;
-            line-height: 1.4;
-            background-color: #91C21EFF;
-        }
-
-        .empty {
-            width: 80px;
-            height: 80px;
         }
 
         h2 {
             text-align: center;
             margin-top: 10px;
             font-size: 14px;
-            font-weight: bold;
             text-transform: uppercase;
         }
 
@@ -55,7 +52,7 @@
 
         th,
         td {
-            border: 1px solid black;
+            border: 1px solid #000;
             padding: 6px;
             text-align: center;
         }
@@ -66,37 +63,34 @@
 
         .signature {
             text-align: right;
-            margin-top: 60px;
+            margin-top: 50px;
             font-size: 12px;
         }
     </style>
 </head>
 
 <body>
-    <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse;" border="0">
-        <tr>
-            <td style="width: 80px; text-align: center; border: none;">
-                <img src="{{ public_path('logo.png') }}" width="80" height="80" alt="Logo">
-            </td>
-            <td style="text-align: center; border: none;">
-                <div style="font-weight: bold; font-size: 14px;">
-                    {{ $title ?? 'Laporan Bulanan' }}<br>
-                    KUA KOTA BANJARBARU<br>
-                </div>
-            </td>
-            <td style="width: 80px; border: none;"></td>
-        </tr>
-    </table>
+    <div class="kop-container">
+        <div class="kop-logo">
+            <img src="{{ public_path('logo.png') }}" alt="Logo">
+        </div>
+        <div class="kop">
+            {{ $title }}<br>
+            KUA KOTA BANJARBARU<br>
+            Tahun: {{ $tahun }}
+        </div>
+        <div class="empty"></div>
+    </div>
 
-
-
-    <h2>Laporan Jumlah Pernikahan Bulanan Pada Tahun {{$tahun}}</h2>
+    <h2>Laporan Jumlah Pernikahan per User</h2>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Bulan</th>
+                <th>NIP</th>
+                <th>Nama Operator</th>
+                <th>Kecamatan</th>
                 <th>Jumlah Pernikahan</th>
             </tr>
         </thead>
@@ -104,19 +98,21 @@
             @forelse ($data as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ \Carbon\Carbon::parse($item->bulan)->translatedFormat('F Y') }}</td>
+                <td>{{ $item->nip }}</td>
+                <td>{{ $item->nama_pengguna }}</td>
+                <td>{{ $item->nama_kecamatan }}</td>
                 <td>{{ $item->jumlah }}</td>
             </tr>
             @empty
             <tr>
-                <td colspan="3">Tidak ada data</td>
+                <td colspan="5">Tidak ada data</td>
             </tr>
             @endforelse
         </tbody>
     </table>
 
     <div class="signature">
-        <p>Banjarbaru, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        <p>Banjarbaru, {{ $tanggal_cetak }}</p>
         <br><br><br>
         <p><strong>Petugas KUA</strong></p>
     </div>

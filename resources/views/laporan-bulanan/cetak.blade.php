@@ -188,7 +188,7 @@
               <img src="/logo.png" width="80" height="80" alt="Logo" class="logo">
           </div>
           <div class="kop">
-              ${title}<br>KUA KECAMATAN CEMPAKA KOTA BANJARBARU<br>BULAN: ${bulan} ${tahun}
+              ${title}<br>KUA KOTA BANJARBARU<br>BULAN: ${bulan} ${tahun}
           </div>
           <div class="empty"></div>
       </div>

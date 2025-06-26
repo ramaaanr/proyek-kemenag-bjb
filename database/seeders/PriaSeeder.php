@@ -12,11 +12,11 @@ class PriaSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        foreach (range(1, 200) as $i) {
+        foreach (range(1, 1000) as $i) {
             DB::table('prias')->insert([
                 'nama' => $faker->name('male'),
-                'usia' => $faker->numberBetween(20, 40),
-                'pendidikan' => $faker->randomElement(['SD', 'SMP', 'SMA', 'D3', 'S1', 'S2']),
+                'usia' => $faker->numberBetween(19, 60),
+                'pendidikan' => $faker->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana', 'Magister']),
                 'sertif_sucatin' => $faker->randomElement(['true', 'false']),
                 'kewarganegaraan' => $faker->randomElement(['WNI', 'WNA']),
                 'created_at' => now(),

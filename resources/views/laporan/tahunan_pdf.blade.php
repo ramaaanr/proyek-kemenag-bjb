@@ -3,48 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Bulanan Pernikahan</title>
+    <title>Laporan Tahunan Pernikahan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
             margin: 20px;
-        }
-
-        .kop-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            background-color: #4648CFFF;
-        }
-
-        .kop-logo img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .kop {
-            width: 500px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 1.4;
-            background-color: #91C21EFF;
-        }
-
-        .empty {
-            width: 80px;
-            height: 80px;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
         }
 
         table {
@@ -64,6 +28,38 @@
             background-color: #f2f2f2;
         }
 
+        .kop-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .kop-table {
+            width: 100%;
+        }
+
+        .kop-table td {
+            vertical-align: middle;
+        }
+
+        .kop-logo img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .kop-title {
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
         .signature {
             text-align: right;
             margin-top: 60px;
@@ -73,6 +69,7 @@
 </head>
 
 <body>
+
     <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse;" border="0">
         <tr>
             <td style="width: 80px; text-align: center; border: none;">
@@ -88,15 +85,13 @@
         </tr>
     </table>
 
-
-
-    <h2>Laporan Jumlah Pernikahan Bulanan Pada Tahun {{$tahun}}</h2>
+    <h2>Laporan Jumlah Pernikahan Tahunan</h2>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Bulan</th>
+                <th>Tahun</th>
                 <th>Jumlah Pernikahan</th>
             </tr>
         </thead>
@@ -104,7 +99,7 @@
             @forelse ($data as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ \Carbon\Carbon::parse($item->bulan)->translatedFormat('F Y') }}</td>
+                <td>{{ $item->tahun }}</td>
                 <td>{{ $item->jumlah }}</td>
             </tr>
             @empty
@@ -120,6 +115,7 @@
         <br><br><br>
         <p><strong>Petugas KUA</strong></p>
     </div>
+
 </body>
 
 </html>

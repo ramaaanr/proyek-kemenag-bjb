@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PernikahanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -35,16 +36,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/bulanan/export-pdf', [LaporanController::class, 'exportBulananPDF'])->name('laporan.bulanan.pdf');
         Route::get('/bulanan', [LaporanController::class, 'laporanBulanan'])->name('laporan.bulanan');
         Route::get('/tahunan', [LaporanController::class, 'laporanTahunan'])->name('laporan.tahunan');
+        Route::get('/tahunan/pdf', [LaporanController::class, 'exportTahunanPDF'])->name('laporan.tahunan.pdf');
         Route::get('/kecamatan', [LaporanController::class, 'laporanKecamatan'])->name('laporan.kecamatan');
+        Route::get('/kecamatan/pdf', [LaporanController::class, 'laporanKecamatanPdf'])->name('laporan.kecamatan.pdf');
         Route::get('/usia', [LaporanController::class, 'laporanUsia'])->name('laporan.usia');
+        Route::get('/usia/pdf', [LaporanController::class, 'exportUsiaPDF'])->name('laporan.usia.pdf');
+
         Route::get('/tren', [LaporanController::class, 'laporanTren'])->name('laporan.tren');
         Route::get('/peta', [LaporanController::class, 'laporanPeta'])->name('laporan.peta');
         Route::get('/user', [LaporanController::class, 'laporanUser'])->name('laporan.user');
+        Route::get('/user/pdf', [LaporanController::class, 'exportUserPDF'])->name('laporan.user.pdf');
+        Route::get('/pendidikan/pdf', [LaporanController::class, 'exportPendidikanPdf'])->name('laporan.pendidikan.pdf');
+
         Route::get('/pendidikan', [LaporanController::class, 'laporanPendidikan'])->name('laporan.pendidikan');
     });
-    Route::get('/dashboard', function () {
-        return view('laporan.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/', function () {
         return view('welcome');
