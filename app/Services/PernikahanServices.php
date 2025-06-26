@@ -11,10 +11,8 @@ class PernikahanServices
     public function getAll($status = null)
     {
         if ($status) {
-            $pernikahan = Pernikahan::with(['pria', 'perempuan', 'statusPernikahan'])
-                ->whereHas('statusPernikahan', function ($query) use ($status) {
-                    $query->where('status', $status);
-                })
+            $pernikahan = Pernikahan::with(['pria', 'perempuan', 'kelurahan'])
+
                 ->get();
         } else {
             $pernikahan = Pernikahan::with(['pria', 'perempuan', 'statusPernikahan'])->get();
@@ -38,17 +36,9 @@ class PernikahanServices
         }
     }
 
-    public function doStore($idPria, $idPerempuan, $data)
+    public function doStore($data)
     {
-        $dataPernikahan = [
-            'id_pria' => $idPria,
-            'id_perempuan' => $idPerempuan,
-            'id_user' => $data['id_user'],
-            'kecamatan' => $data['kecamatan'],
-            'tempat_pernikahan' => $data['tempat_pernikahan'],
-            'tanggal_pernikahan' => $data['tanggal_pernikahan']
-        ];
-        $pernikahan = Pernikahan::create($dataPernikahan);
+        $pernikahan = Pernikahan::create($data);
         if ($pernikahan) {
             return $pernikahan;
         }

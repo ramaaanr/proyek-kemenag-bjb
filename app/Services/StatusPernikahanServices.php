@@ -13,7 +13,12 @@ class StatusPernikahanServices {
         if ($statusPernikahan){
             return ([
                 'status' => true,
-                'message' => "Data Berhasil Dibuat!"
+                'message' => "Data Berhasil Dibuat!",
+            ]);
+        } else {
+            return ([
+                'status' => false,
+                'message' => "Data Gagal Dibuat!"
             ]);
         }
     }

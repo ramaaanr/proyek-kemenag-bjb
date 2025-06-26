@@ -13,6 +13,8 @@ class Perempuan extends Model
         'nama',
         'usia',
         'pendidikan',
+        'kewarganegaraan',
+
         'sertif_sucatin'
     ];
 }

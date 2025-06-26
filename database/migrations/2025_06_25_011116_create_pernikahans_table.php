@@ -16,13 +16,14 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pria');
             $table->unsignedBigInteger('id_perempuan');
             $table->unsignedBigInteger('id_user');
-            $table->string('kecamatan');
+            $table->unsignedBigInteger('id_kelurahan');
             $table->string('tempat_pernikahan');
             $table->date('tanggal_pernikahan');
             $table->timestamps();
             $table->foreign('id_pria')->references('id')->on('prias')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_perempuan')->references('id')->on('perempuans')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_kelurahan')->references('id')->on('kelurahan');
         });
     }
 
